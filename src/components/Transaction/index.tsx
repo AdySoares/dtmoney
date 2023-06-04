@@ -9,8 +9,6 @@ interface TransactionProps{
 }
 
 export function Transaction({description, price, category, date, cashOutflow,...rest}:TransactionProps){
-
-  console.log(cashOutflow)
   return(
     <Container {...rest}>
       <table>

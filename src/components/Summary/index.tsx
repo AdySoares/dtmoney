@@ -1,8 +1,18 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Container, Frame, Search } from "./style";
 import { Transaction } from "../Transaction";
+import { useEffect, useState } from "react";
+import { api } from "../../services/axios";
 
 export function Summary(){
+
+  const [transactions, SetTransactions] = useState([])
+
+  useEffect(() => {
+   api.get('transactions')
+   .then( (response: any) => SetTransactions(response.data))
+  },[])
+
   return(
     <Container>
       <Search>
@@ -10,8 +20,20 @@ export function Summary(){
         <button>{<MagnifyingGlass/>} Buscar</button>
       </Search>
       <Frame>
-        <Transaction description='oi' price={2000} category="test" date="10/05/2001" cashOutflow/>
-        <Transaction description='oi' price={2000} category="test" date="10/05/2001" />
+        {
+          transactions.map(({id,description,price,category,date, cashOutflow}) => {
+            return(
+              <Transaction
+                key={id}
+                description={description}
+                price={price}
+                category={category}
+                date={date}
+                cashOutflow={cashOutflow}
+              />
+            )
+          })   
+        }
       </Frame>
       
     </Container>
