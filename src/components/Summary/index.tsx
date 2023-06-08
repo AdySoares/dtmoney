@@ -21,7 +21,7 @@ export function Summary(){
       </Search>
       <Frame>
         {
-          transactions.map(({id,description,price,category,date, cashOutflow}) => {
+          transactions.map(({id,description,price,category,date,type}) => {
             return(
               <Transaction
                 key={id}
@@ -29,7 +29,7 @@ export function Summary(){
                 price={price}
                 category={category}
                 date={date}
-                cashOutflow={cashOutflow}
+                type={type}
               />
             )
           })   

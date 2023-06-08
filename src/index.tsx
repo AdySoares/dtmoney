@@ -16,7 +16,7 @@ createServer({
           price:200,
           category: 'itens',
           date: '15/05/203',
-          cashOutflow: true
+          type: 'Deposit'
         },
         {
           id:2, 
@@ -24,7 +24,7 @@ createServer({
           price: 5000,
           category: 'venda',
           date: '31/05/203',
-          cashOutflow: false
+          type: 'Deposit'
         },
         {
           id: 3,
@@ -32,7 +32,7 @@ createServer({
           price: 15000,
           category: 'venda',
           date: '31/05/203',
-          cashOutflow: false
+          type: 'Withdrawal'
         }
       ]
     })
