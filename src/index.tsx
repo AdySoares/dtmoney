@@ -2,7 +2,42 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {App} from './App';
 import { GlobalStyle } from './styles/GlobalStyle';
+import {createServer} from 'miragejs'
 
+createServer({
+  routes() {
+    this.namespace = 'api';
+
+    this.get('/transactions', () => {
+      return [
+        {
+          id:1,
+          description: 'Compra de Flores',
+          price:200,
+          category: 'itens',
+          date: '15/05/203',
+          type: 'Deposit'
+        },
+        {
+          id:2, 
+          description: 'venda do video game',
+          price: 5000,
+          category: 'venda',
+          date: '31/05/203',
+          type: 'Deposit'
+        },
+        {
+          id: 3,
+          description: 'venda do Laptop',
+          price: 15000,
+          category: 'venda',
+          date: '31/05/203',
+          type: 'Withdrawal'
+        }
+      ]
+    })
+  }
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

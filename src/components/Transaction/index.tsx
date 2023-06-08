@@ -5,19 +5,17 @@ interface TransactionProps{
   price: number,
   category: string,
   date: string;
-  cashOutflow?: boolean,
+  type: 'Withdrawal' | 'Deposit',
 }
 
-export function Transaction({description, price, category, date, cashOutflow,...rest}:TransactionProps){
-
-  console.log(cashOutflow)
+export function Transaction({description, price, category, date, type,...rest}:TransactionProps){
   return(
-    <Container {...rest}>
+    <Container type={type} {...rest}>
       <table>
         <tbody>
           <tr>
             <td className="description">{description}</td>
-            <td className={`price ${cashOutflow ? 'cashOutflow' : ''}`}>{cashOutflow ? `- R$ ${price}` :`R$ ${price}`}</td>
+            <td className="price">{type === 'Withdrawal' ? `- R$ ${price}` :`R$ ${price}`}</td>
             <td className="category">{category}</td>
             <td className="date">{date}</td>
           </tr>

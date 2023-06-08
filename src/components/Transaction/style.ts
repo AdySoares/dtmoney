@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface TypeProps{
+  type: 'Withdrawal' | 'Deposit'
+}
+
 export const Container = styled.div`
   
   height: 6.6rem;
@@ -24,12 +28,9 @@ export const Container = styled.div`
 
         .price{
           width: 20rem;
-          color: var(--green-light);
+          color: var(${({type} : TypeProps) => ( type === 'Withdrawal' ? '--red' : '--green' )});
         }
-
-        .cashOutflow{
-          color: var(--red);
-        }
+        
 
         .category{
           width: 24rem;
