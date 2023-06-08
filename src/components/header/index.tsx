@@ -1,5 +1,4 @@
 import logo from '../../assets/logo.svg'
-import { NewTransaction } from '../NewTransaction';
 
 import { Container, Content } from "./style";
 

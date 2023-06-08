@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     --shape-3rd: #323238;
 
     --placeholder: #7c7c8a;
-    --base-text: #c4cccc;
+    --base-text: #c4c4cc;
     --titles: #e1e1e6;
     --white: #fff;
 
@@ -48,5 +48,34 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     transition: all 200ms ease-out;
   }
+
+
+.modal-overly{
+  background: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  inset: 0;
+  
+  display: grid;
+  place-items: center;
+}
+
+.modal-content{
+  position: relative;
+  width: 100%;
+  max-width: 535px;
+  padding: 4rem;
+
+  background-color: var(--shape-1st);
+  border-radius: 6px;
+}
+
+.close-modal{
+    background: none;
+    position: absolute;
+    top: 2.4rem;
+    right: 2.4rem;
+    color: var(--placeholder);
+  }
+  
 
 `

@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Dashboard } from "./components/Dashboard";
 import { Summary } from "./components/Summary";
 import { Header } from "./components/header";
-import Modal from 'react-modal';
-
-Modal.setAppElement('#root')
+import { NewTransaction } from "./components/NewTransaction";
 
 export function App() {
 
@@ -25,9 +23,10 @@ export function App() {
       <Dashboard/>
       <Summary/>
 
-      <Modal isOpen={isOpenModal}>
-
-      </Modal>
+     <NewTransaction 
+      onRequestClose={newTransactionModalIsClose}
+      isOpen={isOpenModal}
+    />
 
     </div>
   );
