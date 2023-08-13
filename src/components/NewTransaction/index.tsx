@@ -1,20 +1,37 @@
 import { ArrowCircleDown, ArrowCircleUp, X } from "@phosphor-icons/react";
 import { TypeTransactionContainer, Forms, RatioBox } from "./style";
 import Modal from "react-modal";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { api } from "../../services/axios";
+
+Modal.setAppElement("#root");
 
 interface ModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
 }
 
-Modal.setAppElement("#root");
 export function NewTransaction({
   isOpen,
   onRequestClose,
 }: ModalProps) {
 
-  const [type,SetType] = useState<string>()
+  const [type,SetType] = useState<string>('')
+  const [description,SetDescription] = useState<string>('')
+  const [category,SetCategory] = useState<string>('')
+  const [price,SetPrice] = useState<number>()
+
+  function SendNewTransaction(event: FormEvent) {
+    event.preventDefault()
+
+    api.post('/transactions',{
+      type,
+      description,
+      category,
+      price
+    })
+  }
+
 
   return (
     <Modal
@@ -33,9 +50,31 @@ export function NewTransaction({
       <Forms>
         <fieldset>
           <legend>Nova transação</legend>
-          <input id="Description" placeholder="Descrição" />
-          <input type="number" id="Price" placeholder="Preço" />
-          <input id="Category" placeholder="Categoria" />
+          <input 
+            id="Description" 
+            placeholder="Descrição"
+            onChange={({target}) => (
+              SetDescription(target.value)
+            )}
+            
+          />
+          <input 
+            type="number" 
+            id="Price" 
+            placeholder="Preço"
+            onChange={({target}) => (
+              SetPrice(Number(target.value))
+            )} 
+          
+          />
+          <input
+            id="Category"
+            placeholder="Categoria"
+            onChange={({target}) => (
+              SetCategory(target.value)
+            )}
+
+          />
 
           <TypeTransactionContainer>
             <RatioBox
@@ -64,7 +103,7 @@ export function NewTransaction({
           </TypeTransactionContainer>
         </fieldset>
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit" onClick={SendNewTransaction}>Cadastrar</button>
       </Forms>
     </Modal>
   );

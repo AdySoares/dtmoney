@@ -9,9 +9,11 @@ export function Summary(){
   const [transactions, SetTransactions] = useState([])
 
   useEffect(() => {
-   api.get('transactions')
-   .then( (response: any) => SetTransactions(response.data))
+   api.get('/transactions')
+   .then( (response: any) => SetTransactions(response.data.transactions))
   },[])
+
+  
 
   return(
     <Container>
@@ -22,13 +24,21 @@ export function Summary(){
       <Frame>
         {
           transactions.map(({id,description,price,category,date,type}) => {
+
             return(
               <Transaction
                 key={id}
                 description={description}
-                price={price}
+                price={
+                  new Intl.NumberFormat(
+                    'pt-br',
+                    {
+                      style: 'currency',
+                      currency: 'BRL'
+                    }).format(price)
+                }
                 category={category}
-                date={date}
+                date={new Intl.DateTimeFormat('pt-br').format(new Date(date))}
                 type={type}
               />
             )
