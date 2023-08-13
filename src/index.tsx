@@ -2,20 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {App} from './App';
 import { GlobalStyle } from './styles/GlobalStyle';
-import {createServer} from 'miragejs'
+import {Model, createServer} from 'miragejs'
 
 createServer({
-  routes() {
-    this.namespace = 'api';
 
-    this.get('/transactions', () => {
-      return [
+  models: {
+    transaction: Model,
+  },
+
+  seeds(server) {
+    server.db.loadData({
+      transactions: [
         {
           id:1,
           description: 'Compra de Flores',
           price:200,
           category: 'itens',
-          date: '15/05/203',
+          date: new Date(),
           type: 'Deposit'
         },
         {
@@ -23,7 +26,7 @@ createServer({
           description: 'venda do video game',
           price: 5000,
           category: 'venda',
-          date: '31/05/203',
+          date: Date(),
           type: 'Deposit'
         },
         {
@@ -31,11 +34,27 @@ createServer({
           description: 'venda do Laptop',
           price: 15000,
           category: 'venda',
-          date: '31/05/203',
+          date: Date(),
           type: 'Withdrawal'
         }
       ]
     })
+  },
+
+  routes() {
+    this.namespace = 'api';
+    
+
+    this.get('/transactions', () => {
+      return this.schema.all('transaction')
+    })
+
+    this.post('/transactions', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+
+      return schema.create('transaction', data)
+    })
+
   }
 })
 
